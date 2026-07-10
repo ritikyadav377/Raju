@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RankSignal — Websites, SEO, Google Ads &amp; Meta Ads</title>
+<meta name="description" content="RankSignal builds fast websites and runs SEO, Google Ads and Meta Ads campaigns that turn searches and scrolls into paying customers.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  /* ===== Design tokens =====
+     Ink:        #0D1321  (dark bg)
+     Paper:      #F6F5F1  (light bg)
+     Signal Blue:#2F6FED  (primary accent — trust/digital)
+     Growth Green:#16C79A (secondary accent — ROI/growth)
+     Amber:      #FFB100  (CTA highlight)
+     Slate:      #5B6472  (secondary text)
+  */
+  :root{
+    --ink:#0D1321;
+    --ink-soft:#151D30;
+    --paper:#F6F5F1;
+    --paper-dim:#ECEAE2;
+    --blue:#2F6FED;
+    --green:#16C79A;
+    --amber:#FFB100;
+    --slate:#5B6472;
+    --white:#F5F6FA;
+    --line: rgba(246,245,241,0.12);
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'Inter', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+    --maxw: 1160px;
+    --radius: 14px;
+  }
+
+  *,*::before,*::after{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:var(--body);
+    background:var(--paper);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  img,svg{display:block;max-width:100%;}
+  a{color:inherit;text-decoration:none;}
+  ul{margin:0;padding:0;list-style:none;}
+  h1,h2,h3{font-family:var(--display);margin:0;line-height:1.1;}
+  p{margin:0;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
+  section{padding:96px 0;}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--blue);margin-bottom:18px;
+  }
+  .eyebrow::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px rgba(22,199,154,.18);}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    font-family:var(--body);font-weight:600;font-size:15px;
+    padding:14px 26px;border-radius:999px;border:1px solid transparent;
+    cursor:pointer;transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+    white-space:nowrap;
+  }
+  .btn:active{transform:scale(.97);}
+  .btn-primary{background:var(--amber);color:var(--ink);}
+  .btn-primary:hover{box-shadow:0 10px 24px rgba(255,177,0,.35);transform:translateY(-2px);}
+  .btn-ghost{background:transparent;color:var(--white);border-color:var(--line);}
+  .btn-ghost:hover{background:rgba(246,245,241,.08);}
+  .btn-dark{background:var(--ink);color:var(--white);}
+  .btn-dark:hover{box-shadow:0 10px 24px rgba(13,19,33,.25);transform:translateY(-2px);}
+  .visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);}
+
+  /* ===== Nav ===== */
+  header{
+    position:sticky;top:0;z-index:60;
+    background:rgba(13,19,33,.86);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;color:var(--white);}
+  .brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:19px;color:var(--white);}
+  .brand-mark{width:30px;height:30px;flex-shrink:0;}
+  .nav-links{display:flex;align-items:center;gap:34px;font-size:14.5px;font-weight:500;}
+  .nav-links a{opacity:.82;transition:opacity .15s;}
+  .nav-links a:hover{opacity:1;}
+  .nav-cta{display:flex;align-items:center;gap:14px;}
+  .nav-toggle{
+    display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;
+  }
+  .nav-toggle span{width:22px;height:2px;background:var(--white);border-radius:2px;transition:transform .2s, opacity .2s;}
+
+  /* ===== Hero ===== */
+  .hero{
+    background:radial-gradient(120% 140% at 15% 0%, #14203A 0%, var(--ink) 55%);
+    color:var(--white);padding:90px 0 70px;position:relative;overflow:hidden;
+  }
+  .hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;}
+  .hero h1{font-size:clamp(34px,5vw,58px);letter-spacing:-.02em;}
+  .hero h1 em{font-style:normal;color:var(--green);}
+  .hero p.lead{margin-top:22px;font-size:17px;line-height:1.65;color:#C7CCDA;max-width:48ch;}
+  .hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px;}
+  .hero-tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:36px;}
+  .hero-tags span{
+    font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:#9AA3B8;
+    border:1px solid var(--line);border-radius:8px;padding:6px 10px;
+  }
+  .chart-card{
+    background:var(--ink-soft);border:1px solid var(--line);border-radius:20px;
+    padding:26px 22px 20px;position:relative;
+  }
+  .chart-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;}
+  .chart-head .label{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#8A93A6;}
+  .chart-head .value{font-family:var(--mono);font-size:13px;color:var(--green);}
+  canvas#growth{width:100%;height:220px;display:block;}
+  .chart-milestones{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:12px;}
+  .chart-milestones div{font-family:var(--mono);font-size:10.5px;color:#8A93A6;text-align:center;line-height:1.4;}
+  .chart-milestones div b{display:block;color:var(--white);font-size:11px;margin-bottom:2px;}
+
+  /* ===== Section headers ===== */
+  .section-head{max-width:620px;margin-bottom:52px;}
+  .section-head h2{font-size:clamp(26px,3.6vw,38px);letter-spacing:-.01em;}
+  .section-head p{margin-top:14px;color:var(--slate);font-size:16px;line-height:1.6;}
+  .on-dark .section-head p{color:#AEB4C4;}
+
+  /* ===== Services ===== */
+  .services{background:var(--paper);}
+  .service-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+  .service-card{
+    background:#fff;border:1px solid #E7E4D9;border-radius:var(--radius);
+    padding:28px 24px;transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  }
+  .service-card:hover{transform:translateY(-5px);box-shadow:0 16px 32px rgba(13,19,33,.08);border-color:transparent;}
+  .service-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;}
+  .service-icon svg{width:22px;height:22px;}
+  .service-card h3{font-size:18px;margin-bottom:10px;}
+  .service-card p{font-size:14.5px;color:var(--slate);line-height:1.6;}
+  .ic-1{background:rgba(47,111,237,.1);color:var(--blue);}
+  .ic-2{background:rgba(22,199,154,.12);color:#0F9C79;}
+  .ic-3{background:rgba(255,177,0,.14);color:#B27400;}
+  .ic-4{background:rgba(233,64,122,.12);color:#C4356A;}
+
+  /* ===== Process ===== */
+  .process{background:var(--ink);color:var(--white);}
+  .process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;}
+  .process-grid::before{
+    content:"";position:absolute;top:19px;left:0;right:0;height:1px;background:var(--line);
+    display:none;
+  }
+  @media(min-width:861px){.process-grid::before{display:block;}}
+  .process-step{padding:0 20px 0 0;position:relative;}
+  .step-num{
+    font-family:var(--mono);font-size:13px;color:var(--ink);background:var(--green);
+    width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    margin-bottom:22px;position:relative;z-index:1;
+  }
+  .process-step h3{font-size:17px;margin-bottom:10px;}
+  .process-step p{font-size:14px;color:#AEB4C4;line-height:1.6;}
+
+  /* ===== Why us ===== */
+  .why{background:var(--paper);}
+  .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start;}
+  .why-list{display:flex;flex-direction:column;gap:26px;}
+  .why-item{display:flex;gap:16px;}
+  .why-bullet{
+    width:34px;height:34px;border-radius:9px;background:var(--ink);color:var(--green);
+    flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  }
+  .why-bullet svg{width:16px;height:16px;}
+  .why-item h4{font-family:var(--display);font-size:16.5px;margin-bottom:4px;}
+  .why-item p{font-size:14.5px;color:var(--slate);line-height:1.6;}
+  .why-panel{
+    background:var(--ink-soft);border-radius:20px;padding:34px;color:var(--white);
+    background-image:linear-gradient(155deg,#161F38,#0D1321 70%);
+  }
+  .why-panel .eyebrow{color:var(--amber);}
+  .why-panel .eyebrow::before{background:var(--amber);box-shadow:0 0 0 4px rgba(255,177,0,.18);}
+  .why-panel h3{font-size:22px;margin-bottom:12px;}
+  .why-panel p{color:#C7CCDA;font-size:14.5px;line-height:1.65;margin-bottom:22px;}
+
+  /* ===== FAQ ===== */
+  .faq{background:#fff;}
+  .faq-list{max-width:760px;}
+  .faq-item{border-bottom:1px solid #E7E4D9;}
+  .faq-q{
+    width:100%;text-align:left;background:none;border:none;cursor:pointer;
+    padding:22px 0;display:flex;justify-content:space-between;align-items:center;gap:20px;
+    font-family:var(--display);font-size:16.5px;font-weight:600;color:var(--ink);
+  }
+  .faq-q .plus{width:20px;height:20px;flex-shrink:0;position:relative;}
+  .faq-q .plus::before,.faq-q .plus::after{content:"";position:absolute;background:var(--ink);border-radius:2px;}
+  .faq-q .plus::before{width:14px;height:2px;top:9px;left:3px;}
+  .faq-q .plus::after{width:2px;height:14px;left:9px;top:3px;transition:transform .25s ease;}
+  .faq-item.open .faq-q .plus::after{transform:rotate(90deg);}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease;}
+  .faq-a p{padding-bottom:22px;color:var(--slate);font-size:14.5px;line-height:1.65;max-width:62ch;}
+
+  /* ===== Contact ===== */
+  .contact{background:var(--ink);color:var(--white);}
+  .contact .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;}
+  .contact-info h2{font-size:clamp(26px,3.6vw,36px);margin-bottom:16px;}
+  .contact-info p{color:#AEB4C4;font-size:15.5px;line-height:1.7;max-width:42ch;}
+  .contact-direct{margin-top:30px;display:flex;flex-direction:column;gap:14px;}
+  .contact-direct a{display:flex;align-items:center;gap:12px;font-size:15px;font-weight:500;}
+  .contact-direct .ic{
+    width:38px;height:38px;border-radius:10px;background:var(--ink-soft);border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .contact-direct .ic svg{width:17px;height:17px;color:var(--green);}
+  form{background:var(--ink-soft);border:1px solid var(--line);border-radius:18px;padding:30px;}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+  .field{display:flex;flex-direction:column;gap:7px;}
+  .field.full{grid-column:1 / -1;}
+  label{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#8A93A6;}
+  input,select,textarea{
+    background:var(--ink);border:1px solid var(--line);border-radius:10px;color:var(--white);
+    padding:12px 14px;font-family:var(--body);font-size:14.5px;
+  }
+  input:focus,select:focus,textarea:focus{outline:2px solid var(--green);outline-offset:1px;}
+  textarea{resize:vertical;min-height:90px;}
+  form .btn{width:100%;margin-top:6px;}
+  .form-note{font-size:12px;color:#7C8398;margin-top:12px;line-height:1.5;}
+
+  /* ===== Footer ===== */
+  footer{background:#0A0F1C;color:#8A93A6;padding:44px 0 28px;}
+  .foot-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:28px;padding-bottom:28px;border-bottom:1px solid var(--line);}
+  .foot-brand{color:var(--white);font-family:var(--display);font-weight:700;font-size:18px;display:flex;align-items:center;gap:10px;}
+  .foot-links{display:flex;gap:36px;flex-wrap:wrap;}
+  .foot-links h5{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#5B6472;margin-bottom:12px;}
+  .foot-links ul{display:flex;flex-direction:column;gap:9px;font-size:14px;}
+  .foot-links a:hover{color:var(--white);}
+  .foot-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;padding-top:20px;font-size:12.5px;}
+
+  /* ===== Floating Call/WhatsApp toggle ===== */
+  .fab-wrap{
+    position:fixed;right:22px;bottom:22px;z-index:80;
+    display:flex;flex-direction:column;align-items:flex-end;gap:12px;
+  }
+  .fab-switch{
+    display:flex;align-items:center;gap:8px;
+    background:var(--ink);border:1px solid var(--line);border-radius:999px;
+    padding:6px;box-shadow:0 8px 24px rgba(13,19,33,.28);
+  }
+  .fab-switch button{
+    border:none;background:none;cursor:pointer;font-family:var(--mono);font-size:11px;
+    letter-spacing:.04em;text-transform:uppercase;color:#8A93A6;padding:8px 12px;border-radius:999px;
+    transition:color .2s ease;
+  }
+  .fab-switch button.active{color:var(--ink);}
+  .fab-track{
+    position:relative;width:104px;height:34px;border-radius:999px;background:var(--ink-soft);
+    border:1px solid var(--line);display:flex;align-items:center;
+  }
+  .fab-knob{
+    position:absolute;top:2px;left:2px;width:50px;height:28px;border-radius:999px;
+    background:var(--green);transition:transform .25s ease, background .25s ease;
+  }
+  .fab-track[data-mode="call"] .fab-knob{transform:translateX(0);background:var(--blue);}
+  .fab-track[data-mode="message"] .fab-knob{transform:translateX(50px);background:var(--green);}
+  .fab-track button{
+    position:relative;z-index:1;flex:1;text-align:center;color:#8A93A6;font-weight:600;
+  }
+  .fab-track button.active{color:var(--ink);}
+  .fab-main{
+    width:60px;height:60px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 12px 28px rgba(13,19,33,.35);
+    transition:background .25s ease, transform .18s ease;
+  }
+  .fab-main:hover{transform:translateY(-3px) scale(1.04);}
+  .fab-main svg{width:26px;height:26px;color:#fff;}
+  .fab-main[data-mode="call"]{background:var(--blue);}
+  .fab-main[data-mode="message"]{background:var(--green);}
+  .fab-pulse{
+    position:absolute;inset:0;border-radius:50%;
+    animation:pulse 2.4s ease-out infinite;
+  }
+  .fab-main[data-mode="call"] .fab-pulse{background:var(--blue);}
+  .fab-main[data-mode="message"] .fab-pulse{background:var(--green);}
+  @keyframes pulse{
+    0%{transform:scale(1);opacity:.5;}
+    100%{transform:scale(1.9);opacity:0;}
+  }
+
+  /* ===== Reveal ===== */
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  /* ===== Responsive ===== */
+  @media(max-width:1000px){
+    .hero .wrap{grid-template-columns:1fr;}
+    .service-grid{grid-template-columns:repeat(2,1fr);}
+    .process-grid{grid-template-columns:repeat(2,1fr);gap:32px 20px;}
+    .process-grid::before{display:none;}
+    .why-grid{grid-template-columns:1fr;}
+    .contact .wrap{grid-template-columns:1fr;}
+  }
+  @media(max-width:860px){
+    .nav-links,.nav-cta .btn-ghost{display:none;}
+    .nav-toggle{display:flex;}
+    section{padding:64px 0;}
+  }
+  @media(max-width:560px){
+    .service-grid{grid-template-columns:1fr;}
+    .process-grid{grid-template-columns:1fr;}
+    .form-row{grid-template-columns:1fr;}
+    .fab-switch{padding:5px;}
+    .fab-track{width:92px;height:32px;}
+    .fab-knob{width:44px;height:26px;}
+  }
+
+  @media(prefers-reduced-motion:reduce){
+    *{animation-duration:.001ms !important;transition-duration:.001ms !important;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header>
+  <div class="nav wrap">
+    <a href="#top" class="brand">
+      <svg class="brand-mark" viewBox="0 0 32 32" fill="none">
+        <path d="M3 22L11 13L17 19L29 6" stroke="#16C79A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="29" cy="6" r="3" fill="#FFB100"/>
+      </svg>
+      RankSignal
+    </a>
+    <nav class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#process">Process</a>
+      <a href="#why">Why Us</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="#contact" class="btn btn-ghost">Talk to Us</a>
+      <a href="#contact" class="btn btn-primary">Free Audit</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <nav class="nav-links" id="mobileMenu" style="display:none;flex-direction:column;gap:0;padding:0 24px 20px;color:#fff;">
+    <a href="#services" style="padding:10px 0;">Services</a>
+    <a href="#process" style="padding:10px 0;">Process</a>
+    <a href="#why" style="padding:10px 0;">Why Us</a>
+    <a href="#faq" style="padding:10px 0;">FAQ</a>
+    <a href="#contact" style="padding:10px 0;">Contact</a>
+    <a href="#contact" class="btn btn-primary" style="margin-top:10px;">Free Audit</a>
+  </nav>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Digital growth partner</span>
+      <h1>Get found. Get clicked.<br><em>Get sold.</em></h1>
+      <p class="lead">We build fast, conversion-ready websites and run SEO, Google Ads and Meta Ads campaigns — coordinated as one system, not four separate vendors.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#contact">Book a Free Strategy Call</a>
+        <a class="btn btn-ghost" href="#services">See Our Services</a>
+      </div>
+      <div class="hero-tags">
+        <span>WEBSITE DESIGN</span>
+        <span>SEO</span>
+        <span>GOOGLE ADS</span>
+        <span>META ADS</span>
+      </div>
+    </div>
+
+    <div class="chart-card reveal">
+      <div class="chart-head">
+        <span class="label">Typical growth path</span>
+        <span class="value" id="chartValue">▲ building</span>
+      </div>
+      <canvas id="growth" width="480" height="220" role="img" aria-label="Illustrative chart of a growth path from launching a website to increased sales"></canvas>
+      <div class="chart-milestones">
+        <div><b>01</b>Website live</div>
+        <div><b>02</b>Ranking up</div>
+        <div><b>03</b>Ads live</div>
+        <div><b>04</b>Sales up</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">What we do</span>
+      <h2>Four channels, one coordinated plan</h2>
+      <p>Every service is built to feed the others — your website supports your ads, your SEO supports your website, and your reporting ties it all back to leads and sales.</p>
+    </div>
+    <div class="service-grid">
+      <div class="service-card reveal">
+        <div class="service-icon ic-1">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v5"/></svg>
+        </div>
+        <h3>Website Design &amp; Development</h3>
+        <p>Fast, mobile-first websites built to convert visitors into enquiries — not just look good on a screen.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon ic-2">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z"/><path d="M21 21l-4.3-4.3"/></svg>
+        </div>
+        <h3>SEO</h3>
+        <p>On-page, technical and content SEO to move your business up Google's rankings for searches that matter.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon ic-3">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 11l18-7-7 18-3-8-8-3Z"/></svg>
+        </div>
+        <h3>Google Ads</h3>
+        <p>Search, Shopping and Display campaigns built around real cost-per-lead targets, not just clicks.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon ic-4">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="4" width="16" height="16" rx="4"/><circle cx="12" cy="12" r="3.5"/><circle cx="16.6" cy="7.4" r="0.6" fill="currentColor"/></svg>
+        </div>
+        <h3>Meta Ads</h3>
+        <p>Facebook and Instagram campaigns that reach the right audience with creative that stops the scroll.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROCESS ============ -->
+<section class="process on-dark" id="process">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">How we work</span>
+      <h2>A four-step launch sequence</h2>
+      <p>Same order, every client — so nothing gets built before it has something to plug into.</p>
+    </div>
+    <div class="process-grid">
+      <div class="process-step reveal">
+        <div class="step-num">01</div>
+        <h3>Discover</h3>
+        <p>We audit your current website, rankings, and ad accounts to see what's already working.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-num">02</div>
+        <h3>Strategy</h3>
+        <p>We set clear targets for traffic, rankings and cost per lead before any money is spent.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-num">03</div>
+        <h3>Launch</h3>
+        <p>We build or optimize the site, publish SEO work, and go live with Google &amp; Meta campaigns.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-num">04</div>
+        <h3>Scale</h3>
+        <p>Weekly reporting, testing and budget reallocation toward whatever is actually converting.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY US ============ -->
+<section class="why" id="why">
+  <div class="wrap why-grid">
+    <div>
+      <span class="eyebrow">Why RankSignal</span>
+      <h2 style="font-size:clamp(26px,3.6vw,34px);margin-bottom:34px;">Built for owners who don't have time to manage four vendors</h2>
+      <div class="why-list">
+        <div class="why-item reveal">
+          <div class="why-bullet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+          <div><h4>One team, four channels</h4><p>Website, SEO, Google Ads and Meta Ads coordinated together instead of scattered across separate freelancers.</p></div>
+        </div>
+        <div class="why-item reveal">
+          <div class="why-bullet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+          <div><h4>Plain-language reporting</h4><p>Monthly reports that show traffic, rankings and ad spend against results — no jargon, no vanity metrics.</p></div>
+        </div>
+        <div class="why-item reveal">
+          <div class="why-bullet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+          <div><h4>Transparent budgets</h4><p>You always see exactly what's spent on ad platforms versus what's spent on our management.</p></div>
+        </div>
+        <div class="why-item reveal">
+          <div class="why-bullet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+          <div><h4>Direct access</h4><p>Message your account manager straight on WhatsApp — no ticket queues, no call centers.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="why-panel reveal">
+      <span class="eyebrow">Free audit</span>
+      <h3>Not sure where to start?</h3>
+      <p>Send us your website and we'll send back a plain-language breakdown of your SEO, ad accounts (if any), and the three fastest wins available — no cost, no obligation.</p>
+      <a href="#contact" class="btn btn-primary">Request Free Audit</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="faq" id="faq">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Questions</span>
+      <h2>Frequently asked</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item open">
+        <button class="faq-q">How long until SEO shows results? <span class="plus"></span></button>
+        <div class="faq-a"><p>Technical fixes can show up within weeks, but meaningful ranking movement typically takes a few months since it depends on your industry, competition and starting point. We set realistic checkpoints during the Strategy step so you know what to expect.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Do you require a long-term contract? <span class="plus"></span></button>
+        <div class="faq-a"><p>No. Ad campaigns run month to month, and SEO work is billed the same way. We'd rather earn your business every month than lock you in.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Can you work with my existing website? <span class="plus"></span></button>
+        <div class="faq-a"><p>Yes. Many clients start with SEO or ads on their current site while we plan a redesign, so nothing has to happen all at once.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">How do I get in touch quickly? <span class="plus"></span></button>
+        <div class="faq-a"><p>Use the call/WhatsApp button in the corner of this page, or fill in the contact form below — both reach us directly.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="contact-info reveal">
+      <span class="eyebrow">Get in touch</span>
+      <h2>Tell us about your business</h2>
+      <p>Fill in the form and it opens straight into WhatsApp so we can reply personally — or reach us directly below.</p>
+      <div class="contact-direct">
+        <a href="tel:+918423543289">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.5 2.1L8 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.7 2Z"/></svg></span>
+          +91 84235 43289 (Call)
+        </a>
+        <a href="https://wa.me/918423543289?text=Hi%20RankSignal%2C%20I%27d%20like%20to%20know%20more%20about%20your%20website%2FSEO%2FAds%20services." target="_blank" rel="noopener">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 20l1-4.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5Z"/></svg></span>
+          +91 84235 43289 (WhatsApp)
+        </a>
+      </div>
+    </div>
+
+    <form id="leadForm" class="reveal">
+      <div class="form-row">
+        <div class="field">
+          <label for="fname">Name</label>
+          <input id="fname" name="name" type="text" placeholder="Your name" required>
+        </div>
+        <div class="field">
+          <label for="fphone">Phone</label>
+          <input id="fphone" name="phone" type="tel" placeholder="Your phone number" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field full">
+          <label for="fservice">Service interested in</label>
+          <select id="fservice" name="service">
+            <option>Website Design &amp; Development</option>
+            <option>SEO</option>
+            <option>Google Ads</option>
+            <option>Meta Ads</option>
+            <option>All of the above</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field full">
+          <label for="fmsg">Message</label>
+          <textarea id="fmsg" name="message" placeholder="Tell us a little about your business and goals"></textarea>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Send via WhatsApp</button>
+      <p class="form-note">Submitting opens WhatsApp with your details pre-filled so you can send it straight to our team — nothing is stored on this page.</p>
+    </form>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <a href="#top" class="foot-brand">
+        <svg width="26" height="26" viewBox="0 0 32 32" fill="none"><path d="M3 22L11 13L17 19L29 6" stroke="#16C79A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="29" cy="6" r="3" fill="#FFB100"/></svg>
+        RankSignal
+      </a>
+      <div class="foot-links">
+        <div>
+          <h5>Services</h5>
+          <ul>
+            <li><a href="#services">Website Design</a></li>
+            <li><a href="#services">SEO</a></li>
+            <li><a href="#services">Google Ads</a></li>
+            <li><a href="#services">Meta Ads</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Company</h5>
+          <ul>
+            <li><a href="#process">Process</a></li>
+            <li><a href="#why">Why Us</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Contact</h5>
+          <ul>
+            <li><a href="tel:+918423543289">Call +91 84235 43289</a></li>
+            <li><a href="https://wa.me/918423543289" target="_blank" rel="noopener">WhatsApp us</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="year"></span> RankSignal. All rights reserved.</span>
+      <span>Websites · SEO · Google Ads · Meta Ads</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ FLOATING CALL / WHATSAPP TOGGLE ============ -->
+<div class="fab-wrap">
+  <div class="fab-switch">
+    <div class="fab-track" id="fabTrack" data-mode="message">
+      <div class="fab-knob"></div>
+      <button type="button" id="btnCall" aria-pressed="false">Call</button>
+      <button type="button" id="btnMsg" class="active" aria-pressed="true">Chat</button>
+    </div>
+  </div>
+  <a id="fabMain" class="fab-main" data-mode="message" href="https://wa.me/918423543289?text=Hi%20RankSignal%2C%20I%27d%20like%20to%20know%20more%20about%20your%20services." target="_blank" rel="noopener" aria-label="Message us on WhatsApp">
+    <span class="fab-pulse"></span>
+    <svg id="fabIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 20l1-4.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5Z"/></svg>
+  </a>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  // ---- Year ----
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ---- Mobile nav ----
+  var navToggle = document.getElementById('navToggle');
+  var mobileMenu = document.getElementById('mobileMenu');
+  navToggle.addEventListener('click', function(){
+    var open = mobileMenu.style.display === 'flex';
+    mobileMenu.style.display = open ? 'none' : 'flex';
+    navToggle.setAttribute('aria-expanded', String(!open));
+  });
+  mobileMenu.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ mobileMenu.style.display = 'none'; });
+  });
+
+  // ---- FAQ accordion ----
+  document.querySelectorAll('.faq-item').forEach(function(item){
+    var q = item.querySelector('.faq-q');
+    var a = item.querySelector('.faq-a');
+    function sync(){
+      a.style.maxHeight = item.classList.contains('open') ? a.scrollHeight + 'px' : '0px';
+    }
+    sync();
+    q.addEventListener('click', function(){
+      var willOpen = !item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function(other){
+        other.classList.remove('open');
+        other.querySelector('.faq-a').style.maxHeight = '0px';
+      });
+      if(willOpen){ item.classList.add('open'); }
+      sync();
+    });
+    window.addEventListener('resize', sync);
+  });
+
+  // ---- Scroll reveal ----
+  var revealEls = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){ entry.target.classList.add('in'); io.unobserve(entry.target); }
+      });
+    }, {threshold:.15});
+    revealEls.forEach(function(el){ io.observe(el); });
+  } else {
+    revealEls.forEach(function(el){ el.classList.add('in'); });
+  }
+
+  // ---- Hero growth chart (canvas) ----
+  var canvas = document.getElementById('growth');
+  var ctx = canvas.getContext('2d');
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var dpr = window.devicePixelRatio || 1;
+
+  function fitCanvas(){
+    var rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+
+  var points = [
+    {x:0.02, y:0.86}, {x:0.28, y:0.66}, {x:0.55, y:0.5}, {x:0.78, y:0.26}, {x:0.98, y:0.1}
+  ];
+
+  function draw(progress){
+    var rect = canvas.getBoundingClientRect();
+    var w = rect.width, h = rect.height;
+    ctx.clearRect(0,0,w,h);
+
+    // grid lines
+    ctx.strokeStyle = 'rgba(246,245,241,0.06)';
+    ctx.lineWidth = 1;
+    for(var g=1; g<4; g++){
+      var gy = (h/4)*g;
+      ctx.beginPath(); ctx.moveTo(0,gy); ctx.lineTo(w,gy); ctx.stroke();
+    }
+
+    var visiblePoints = Math.max(2, Math.floor(points.length * progress) + 1);
+    var pts = points.slice(0, visiblePoints).map(function(p){ return {x:p.x*w, y:p.y*h}; });
+
+    // area fill
+    ctx.beginPath();
+    ctx.moveTo(pts[0].x, h);
+    pts.forEach(function(p){ ctx.lineTo(p.x, p.y); });
+    ctx.lineTo(pts[pts.length-1].x, h);
+    ctx.closePath();
+    var grad = ctx.createLinearGradient(0,0,0,h);
+    grad.addColorStop(0, 'rgba(22,199,154,0.28)');
+    grad.addColorStop(1, 'rgba(22,199,154,0)');
+    ctx.fillStyle = grad;
+    ctx.fill();
+
+    // line
+    ctx.beginPath();
+    pts.forEach(function(p,i){ i===0 ? ctx.moveTo(p.x,p.y) : ctx.lineTo(p.x,p.y); });
+    ctx.strokeStyle = '#16C79A';
+    ctx.lineWidth = 2.5;
+    ctx.lineJoin = 'round';
+    ctx.stroke();
+
+    // dots
+    pts.forEach(function(p,i){
+      var isLast = i === pts.length-1;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, isLast ? 5 : 3.5, 0, Math.PI*2);
+      ctx.fillStyle = isLast ? '#FFB100' : '#16C79A';
+      ctx.fill();
+      if(isLast){
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 9, 0, Math.PI*2);
+        ctx.strokeStyle = 'rgba(255,177,0,0.4)';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+      }
+    });
+  }
+
+  var chartValueEl = document.getElementById('chartValue');
+  var labels = ['▲ site live','▲ ranking up','▲ traffic up','▲ ads live','▲ sales up'];
+
+  function animate(){
+    fitCanvas();
+    if(reduceMotion){ draw(1); chartValueEl.textContent = labels[labels.length-1]; return; }
+    var start = null, duration = 2600;
+    function step(ts){
+      if(!start) start = ts;
+      var progress = Math.min(1, (ts-start)/duration);
+      draw(progress);
+      var idx = Math.min(labels.length-1, Math.floor(progress*labels.length));
+      chartValueEl.textContent = labels[idx];
+      if(progress < 1){ requestAnimationFrame(step); }
+    }
+    requestAnimationFrame(step);
+  }
+  window.addEventListener('resize', function(){ fitCanvas(); draw(1); });
+  animate();
+
+  // ---- Floating Call / WhatsApp toggle ----
+  var PHONE = '918423543289';
+  var track = document.getElementById('fabTrack');
+  var btnCall = document.getElementById('btnCall');
+  var btnMsg = document.getElementById('btnMsg');
+  var fabMain = document.getElementById('fabMain');
+  var fabIcon = document.getElementById('fabIcon');
+
+  var ICONS = {
+    call: '<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.5 2.1L8 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.7 2Z"/>',
+    message: '<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 20l1-4.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5Z"/>'
+  };
+
+  function setMode(mode){
+    track.setAttribute('data-mode', mode);
+    fabMain.setAttribute('data-mode', mode);
+    fabIcon.innerHTML = ICONS[mode];
+    btnCall.classList.toggle('active', mode === 'call');
+    btnMsg.classList.toggle('active', mode === 'message');
+    btnCall.setAttribute('aria-pressed', String(mode === 'call'));
+    btnMsg.setAttribute('aria-pressed', String(mode === 'message'));
+
+    if(mode === 'call'){
+      fabMain.href = 'tel:+' + PHONE;
+      fabMain.removeAttribute('target');
+      fabMain.setAttribute('aria-label', 'Call us now');
+    } else {
+      fabMain.href = 'https://wa.me/' + PHONE + '?text=' + encodeURIComponent("Hi RankSignal, I'd like to know more about your services.");
+      fabMain.setAttribute('target', '_blank');
+      fabMain.setAttribute('rel', 'noopener');
+      fabMain.setAttribute('aria-label', 'Message us on WhatsApp');
+    }
+  }
+  btnCall.addEventListener('click', function(){ setMode('call'); });
+  btnMsg.addEventListener('click', function(){ setMode('message'); });
+  setMode('message');
+
+  // ---- Lead form -> WhatsApp ----
+  var form = document.getElementById('leadForm');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var name = document.getElementById('fname').value.trim();
+    var phone = document.getElementById('fphone').value.trim();
+    var service = document.getElementById('fservice').value;
+    var msg = document.getElementById('fmsg').value.trim();
+
+    var text = "Hi RankSignal, I'm " + name + " (" + phone + ").\n" +
+               "Interested in: " + service + "\n" +
+               (msg ? ("Message: " + msg) : "I'd like to know more about your services.");
+
+    window.open('https://wa.me/' + PHONE + '?text=' + encodeURIComponent(text), '_blank');
+  });
+
+})();
+</script>
+</body>
+</html>
